@@ -15,7 +15,7 @@ export default function Spinner({ size = 'md', className }: SpinnerProps) {
   return (
     <div
       className={clsx(
-        'animate-spin rounded-full border-2 border-slate-200 border-t-primary-600',
+        'animate-spin rounded-full border-2 border-secondary-200 border-t-primary',
         sizeClasses[size],
         className
       )}
@@ -30,4 +30,3 @@ export function PageLoader() {
     </div>
   );
 }
-

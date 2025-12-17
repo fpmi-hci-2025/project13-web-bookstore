@@ -1,6 +1,6 @@
 import apiClient, { setToken, removeToken } from './client';
 import type { 
-  User, Book, Author, Cart, Order, Favorite, 
+  User, Book, Author, Cart, Order, Favorite, Review,
   AuthResponse, BooksResponse 
 } from '../types';
 
@@ -70,14 +70,12 @@ export const cartApi = {
     return data;
   },
 
-  addItem: async (bookId: string, quantity = 1): Promise<Cart> => {
-    const { data } = await apiClient.post('/cart', { book_id: bookId, quantity });
-    return data;
+  addItem: async (bookId: string, quantity = 1): Promise<void> => {
+    await apiClient.post('/cart', { book_id: bookId, quantity });
   },
 
-  updateItem: async (itemId: string, quantity: number): Promise<Cart> => {
-    const { data } = await apiClient.put(`/cart/${itemId}`, { quantity });
-    return data;
+  updateItem: async (itemId: string, quantity: number): Promise<void> => {
+    await apiClient.put(`/cart/${itemId}`, { quantity });
   },
 
   removeItem: async (itemId: string): Promise<void> => {
@@ -93,6 +91,7 @@ export const cartApi = {
 export const ordersApi = {
   getAll: async (): Promise<Order[]> => {
     const { data } = await apiClient.get('/orders');
+    if (!data) return [];
     return Array.isArray(data) ? data : data.orders || [];
   },
 
@@ -110,6 +109,7 @@ export const ordersApi = {
 export const favoritesApi = {
   getAll: async (): Promise<Favorite[]> => {
     const { data } = await apiClient.get('/favorites');
+    if (!data) return [];
     return Array.isArray(data) ? data : data.favorites || [];
   },
 
@@ -120,6 +120,31 @@ export const favoritesApi = {
 
   remove: async (bookId: string): Promise<void> => {
     await apiClient.delete(`/favorites/${bookId}`);
+  },
+};
+
+// Reviews
+export const reviewsApi = {
+  getByBook: async (bookId: string, page = 1, pageSize = 20): Promise<Review[]> => {
+    const { data } = await apiClient.get(`/books/${bookId}/reviews`, {
+      params: { page, page_size: pageSize },
+    });
+    if (!data) return [];
+    return Array.isArray(data) ? data : [];
+  },
+
+  create: async (bookId: string, rating: number, comment: string): Promise<Review> => {
+    const { data } = await apiClient.post('/reviews', { book_id: bookId, rating, comment });
+    return data;
+  },
+
+  update: async (reviewId: string, rating: number, comment: string): Promise<Review> => {
+    const { data } = await apiClient.put(`/reviews/${reviewId}`, { rating, comment });
+    return data;
+  },
+
+  delete: async (reviewId: string): Promise<void> => {
+    await apiClient.delete(`/reviews/${reviewId}`);
   },
 };
 

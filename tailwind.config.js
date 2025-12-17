@@ -7,21 +7,39 @@ export default {
   theme: {
     extend: {
       colors: {
+        // Mobile app colors
+        background: '#FFFAF4',
+        surface: '#FFFFFF',
+        'on-primary': '#121212',
         primary: {
-          50: '#f0f9ff',
-          100: '#e0f2fe',
-          200: '#bae6fd',
-          300: '#7dd3fc',
-          400: '#38bdf8',
-          500: '#0ea5e9',
-          600: '#0284c7',
-          700: '#0369a1',
-          800: '#075985',
-          900: '#0c4a6e',
+          50: '#fdf2f2',
+          100: '#fce4e4',
+          200: '#facece',
+          300: '#f5acad',
+          400: '#ec7f81',
+          500: '#B16668',
+          600: '#a05557',
+          700: '#864547',
+          800: '#703c3e',
+          900: '#5f3638',
+          DEFAULT: '#B16668',
+        },
+        secondary: {
+          50: '#f6f6f6',
+          100: '#e7e7e7',
+          200: '#d1d2d1',
+          300: '#b0b1af',
+          400: '#888986',
+          500: '#4F514E',
+          600: '#5f615e',
+          700: '#50524f',
+          800: '#454744',
+          900: '#3c3d3b',
+          DEFAULT: '#4F514E',
         },
         accent: {
-          DEFAULT: '#f97316',
-          hover: '#ea580c',
+          DEFAULT: '#B16668',
+          hover: '#a05557',
         },
       },
       fontFamily: {
@@ -32,4 +50,3 @@ export default {
   },
   plugins: [],
 }
-

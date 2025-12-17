@@ -3,12 +3,12 @@ import Header from './Header';
 
 export default function Layout() {
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col bg-background">
       <Header />
       <main className="flex-1">
         <Outlet />
       </main>
-      <footer className="bg-slate-900 text-slate-400 py-12">
+      <footer className="bg-on-primary text-secondary-300 py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div>
@@ -41,7 +41,7 @@ export default function Layout() {
               </ul>
             </div>
           </div>
-          <div className="border-t border-slate-800 mt-8 pt-8 text-center text-sm">
+          <div className="border-t border-secondary-700 mt-8 pt-8 text-center text-sm">
             © 2024 BookStore. All rights reserved.
           </div>
         </div>
@@ -49,4 +49,3 @@ export default function Layout() {
     </div>
   );
 }
-

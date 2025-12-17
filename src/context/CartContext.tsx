@@ -1,5 +1,5 @@
-import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import { Cart, CartItem } from '../types';
+import { createContext, useContext, useState, useEffect, ReactNode, useCallback } from 'react';
+import { Cart } from '../types';
 import { cartApi } from '../api';
 import { useAuth } from './AuthContext';
 
@@ -20,30 +20,39 @@ export function CartProvider({ children }: { children: ReactNode }) {
   const [cart, setCart] = useState<Cart | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
+  const loadCart = useCallback(async () => {
+    if (!isAuthenticated) return;
+    
+    setIsLoading(true);
+    try {
+      const cartData = await cartApi.get();
+      // Backend returns { items: [], total_price: number, total_items: number }
+      setCart({
+        items: cartData?.items || [],
+        total: cartData?.total_price ?? cartData?.total ?? 0,
+      });
+    } catch (error) {
+      console.error('Failed to load cart:', error);
+      setCart({ items: [], total: 0 });
+    } finally {
+      setIsLoading(false);
+    }
+  }, [isAuthenticated]);
+
   useEffect(() => {
     if (isAuthenticated) {
       loadCart();
     } else {
       setCart(null);
     }
-  }, [isAuthenticated]);
-
-  const loadCart = async () => {
-    setIsLoading(true);
-    try {
-      const cartData = await cartApi.get();
-      setCart(cartData);
-    } catch (error) {
-      console.error('Failed to load cart:', error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  }, [isAuthenticated, loadCart]);
 
   const addToCart = async (bookId: string, quantity = 1) => {
     try {
-      const updatedCart = await cartApi.addItem(bookId, quantity);
-      setCart(updatedCart);
+      // Backend returns just the CartItem, not the full cart
+      await cartApi.addItem(bookId, quantity);
+      // Reload the full cart to get updated items and total
+      await loadCart();
     } catch (error) {
       console.error('Failed to add to cart:', error);
       throw error;
@@ -52,8 +61,10 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
   const updateQuantity = async (itemId: string, quantity: number) => {
     try {
-      const updatedCart = await cartApi.updateItem(itemId, quantity);
-      setCart(updatedCart);
+      // Backend returns just the CartItem, not the full cart
+      await cartApi.updateItem(itemId, quantity);
+      // Reload the full cart
+      await loadCart();
     } catch (error) {
       console.error('Failed to update cart:', error);
       throw error;
@@ -63,6 +74,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
   const removeFromCart = async (itemId: string) => {
     try {
       await cartApi.removeItem(itemId);
+      // Update local state optimistically
       setCart((prev) => {
         if (!prev) return null;
         const items = prev.items.filter((item) => item.id !== itemId);
@@ -88,7 +100,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
     }
   };
 
-  const itemCount = cart?.items.reduce((sum, item) => sum + item.quantity, 0) || 0;
+  const itemCount = cart?.items?.reduce((sum, item) => sum + item.quantity, 0) ?? 0;
 
   return (
     <CartContext.Provider
@@ -114,4 +126,3 @@ export function useCart() {
   }
   return context;
 }
-

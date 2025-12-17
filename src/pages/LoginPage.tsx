@@ -27,18 +27,18 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex">
+    <div className="min-h-screen flex bg-background">
       {/* Left side - Form */}
       <div className="flex-1 flex items-center justify-center px-4 sm:px-6 lg:px-8">
         <div className="w-full max-w-md">
           <div className="text-center mb-8">
             <Link to="/" className="inline-flex items-center gap-2 mb-6">
-              <div className="w-12 h-12 bg-gradient-to-br from-primary-500 to-primary-700 rounded-xl flex items-center justify-center shadow-lg">
+              <div className="w-12 h-12 bg-gradient-to-br from-primary to-primary-700 rounded-xl flex items-center justify-center shadow-lg shadow-primary/25">
                 <BookOpen className="w-6 h-6 text-white" />
               </div>
             </Link>
-            <h1 className="text-2xl font-display font-bold text-slate-900">Welcome back</h1>
-            <p className="mt-2 text-slate-500">Sign in to your account to continue</p>
+            <h1 className="text-2xl font-display font-bold text-on-primary">Welcome back</h1>
+            <p className="mt-2 text-secondary">Sign in to your account to continue</p>
           </div>
 
           {error && (
@@ -50,9 +50,9 @@ export default function LoginPage() {
 
           <form onSubmit={handleSubmit} className="space-y-5">
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-2">Email</label>
+              <label className="block text-sm font-medium text-on-primary mb-2">Email</label>
               <div className="relative">
-                <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
+                <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-secondary" />
                 <input
                   type="email"
                   value={email}
@@ -65,9 +65,9 @@ export default function LoginPage() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-2">Password</label>
+              <label className="block text-sm font-medium text-on-primary mb-2">Password</label>
               <div className="relative">
-                <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
+                <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-secondary" />
                 <input
                   type="password"
                   value={password}
@@ -88,9 +88,9 @@ export default function LoginPage() {
             </button>
           </form>
 
-          <p className="mt-6 text-center text-slate-500">
+          <p className="mt-6 text-center text-secondary">
             Don't have an account?{' '}
-            <Link to="/register" className="text-primary-600 hover:text-primary-700 font-medium">
+            <Link to="/register" className="text-primary hover:text-primary-600 font-medium">
               Create one
             </Link>
           </p>
@@ -99,7 +99,7 @@ export default function LoginPage() {
 
       {/* Right side - Image */}
       <div className="hidden lg:block lg:w-1/2 relative">
-        <div className="absolute inset-0 bg-gradient-to-br from-primary-600 to-primary-800" />
+        <div className="absolute inset-0 bg-gradient-to-br from-primary to-primary-800" />
         <div
           className="absolute inset-0 bg-cover bg-center opacity-20"
           style={{ backgroundImage: "url('https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=1200')" }}
@@ -116,4 +116,3 @@ export default function LoginPage() {
     </div>
   );
 }
-

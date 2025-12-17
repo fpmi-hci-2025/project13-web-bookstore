@@ -40,10 +40,10 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="min-h-screen flex">
+    <div className="min-h-screen flex bg-background">
       {/* Left side - Image */}
       <div className="hidden lg:block lg:w-1/2 relative">
-        <div className="absolute inset-0 bg-gradient-to-br from-primary-600 to-primary-800" />
+        <div className="absolute inset-0 bg-gradient-to-br from-primary to-primary-800" />
         <div
           className="absolute inset-0 bg-cover bg-center opacity-20"
           style={{ backgroundImage: "url('https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?w=1200')" }}
@@ -63,12 +63,12 @@ export default function RegisterPage() {
         <div className="w-full max-w-md">
           <div className="text-center mb-8">
             <Link to="/" className="inline-flex items-center gap-2 mb-6">
-              <div className="w-12 h-12 bg-gradient-to-br from-primary-500 to-primary-700 rounded-xl flex items-center justify-center shadow-lg">
+              <div className="w-12 h-12 bg-gradient-to-br from-primary to-primary-700 rounded-xl flex items-center justify-center shadow-lg shadow-primary/25">
                 <BookOpen className="w-6 h-6 text-white" />
               </div>
             </Link>
-            <h1 className="text-2xl font-display font-bold text-slate-900">Create your account</h1>
-            <p className="mt-2 text-slate-500">Start your reading journey today</p>
+            <h1 className="text-2xl font-display font-bold text-on-primary">Create your account</h1>
+            <p className="mt-2 text-secondary">Start your reading journey today</p>
           </div>
 
           {error && (
@@ -80,9 +80,9 @@ export default function RegisterPage() {
 
           <form onSubmit={handleSubmit} className="space-y-5">
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-2">Username</label>
+              <label className="block text-sm font-medium text-on-primary mb-2">Username</label>
               <div className="relative">
-                <User className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
+                <User className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-secondary" />
                 <input
                   type="text"
                   value={username}
@@ -95,9 +95,9 @@ export default function RegisterPage() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-2">Email</label>
+              <label className="block text-sm font-medium text-on-primary mb-2">Email</label>
               <div className="relative">
-                <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
+                <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-secondary" />
                 <input
                   type="email"
                   value={email}
@@ -110,9 +110,9 @@ export default function RegisterPage() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-2">Password</label>
+              <label className="block text-sm font-medium text-on-primary mb-2">Password</label>
               <div className="relative">
-                <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
+                <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-secondary" />
                 <input
                   type="password"
                   value={password}
@@ -125,9 +125,9 @@ export default function RegisterPage() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-2">Confirm Password</label>
+              <label className="block text-sm font-medium text-on-primary mb-2">Confirm Password</label>
               <div className="relative">
-                <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
+                <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-secondary" />
                 <input
                   type="password"
                   value={confirmPassword}
@@ -148,9 +148,9 @@ export default function RegisterPage() {
             </button>
           </form>
 
-          <p className="mt-6 text-center text-slate-500">
+          <p className="mt-6 text-center text-secondary">
             Already have an account?{' '}
-            <Link to="/login" className="text-primary-600 hover:text-primary-700 font-medium">
+            <Link to="/login" className="text-primary hover:text-primary-600 font-medium">
               Sign in
             </Link>
           </p>
@@ -159,4 +159,3 @@ export default function RegisterPage() {
     </div>
   );
 }
-

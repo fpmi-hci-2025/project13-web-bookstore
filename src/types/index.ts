@@ -40,6 +40,8 @@ export interface CartItem {
 export interface Cart {
   items: CartItem[];
   total: number;
+  total_price?: number;
+  total_items?: number;
 }
 
 export interface Order {
@@ -64,6 +66,20 @@ export interface Favorite {
   id: string;
   book_id: string;
   book?: Book;
+}
+
+export interface Review {
+  id: string;
+  user_id: string;
+  book_id: string;
+  rating: number;
+  comment: string;
+  created_at: string;
+  updated_at: string;
+  user?: {
+    id: string;
+    username: string;
+  };
 }
 
 export interface AuthResponse {
